@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class StudentModel
+class StudentModel extends BaseModel
 {
 
 }

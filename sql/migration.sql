@@ -58,3 +58,7 @@ CREATE TABLE IF NOT EXISTS class_members (
                                              FOREIGN KEY (class_id) REFERENCES classes(id),
                                              FOREIGN KEY (student_id) REFERENCES students(id)
 ) COMMENT '班级成员关系表';
+
+-- 创建
+ALTER TABLE users
+    ADD COLUMN session_id VARCHAR(255) COMMENT '登录凭证';
