@@ -14,6 +14,6 @@ abstract class BaseController
     protected function view($slug)
     {
         // 显示登录页面
-        include __DIR__ . "../../public/View/{$slug}.php";
+        include __DIR__ . "/../../public/View/{$slug}.php";
     }
 }

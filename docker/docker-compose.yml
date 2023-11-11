@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ../:/var/www/html
     ports:
       - "8080:80"
     depends_on:
@@ -13,17 +15,12 @@ services:
   php:
     image: php:7.4-fpm
     volumes:
-      - .:/var/www/html
-  nginx:
-    image: nginx:latest
-    ports:
-      - "8080:80"
-    depends_on:
-      - php
+      - ../:/var/www/html
   mysql:
-    image: mysql:latest
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: zikaoMP
-      MYSQL_USER: root
+      MYSQL_USER: zikao
       MYSQL_PASSWORD: 123456
+

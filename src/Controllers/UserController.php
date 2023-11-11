@@ -41,7 +41,7 @@ class UserController extends BaseController
             exit();
         } else {
             // 用户名或密码错误，显示错误信息或重定向到登录页面
-            header('Location: /login?error=1'); // 重定向到登录页面并传递错误参数
+            header('Location: /user/login?error=1'); // 重定向到登录页面并传递错误参数
             exit();
         }
     }

@@ -9,17 +9,17 @@
 <h2>Login</h2>
 
 <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
-    <p style="color: red;">Invalid username or password.</p>
+    <p style="color: red;">无效的用户名或密码.</p>
 <?php endif; ?>
 
 <form action="/users/process-login" method="post">
-    <label for="username">Username:</label>
+    <label for="username">用户名:</label>
     <input type="text" id="username" name="username" required>
     <br>
-    <label for="password">Password:</label>
+    <label for="password">密码:</label>
     <input type="password" id="password" name="password" required>
     <br>
-    <button type="submit">Login</button>
+    <button type="submit">登陆</button>
 </form>
 </body>
 </html>
