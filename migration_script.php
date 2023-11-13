@@ -1,9 +1,7 @@
 <?php
 
 // 引入数据库配置文件
-global $mysqlConfig;
-require_once 'config/mysql.config.php';
-
+$mysqlConfig = include(__DIR__ . '/config/mysql.config.php');
 try {
     // 创建连接
     $conn = new PDO("mysql:host={$mysqlConfig['servername']};dbname={$mysqlConfig['dbname']}", $mysqlConfig['username'], $mysqlConfig['password']);

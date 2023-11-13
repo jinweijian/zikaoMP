@@ -6,7 +6,7 @@ SELECT COUNT(*) INTO userCount FROM `users`;
 
 -- 如果用户表中没有数据，插入默认教师用户
 IF userCount = 0 THEN
-        INSERT INTO `users` (username, password, role) VALUES ('default_teacher', 'password123', 'teacher');
+        INSERT INTO `users` (username, password, role) VALUES ('admin', SHA1('admin123'), 'teacher');
 END IF;
 END;
 

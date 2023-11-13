@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Kernel;
-require_once  __DIR__ . '/../../config/mysql.config.php';
 
 class MysqlSingleton
 {
     private static $instance;
     private $connection;
+    private $config;
 
     private function __construct()
     {
-        global $mysqlConfig;
-        $this->connection = new \PDO("mysql:host={$mysqlConfig['servername']};dbname={$mysqlConfig['dbname']}", $mysqlConfig['username'], $mysqlConfig['password']);
+        $this->config = include(__DIR__ . '/../../config/mysql.config.php');
+        $this->connection = new \PDO("mysql:host={$this->config['servername']};dbname={$this->config['dbname']}", $this->config['username'], $this->config['password']);
     }
 
     public static function getInstance()

@@ -32,7 +32,14 @@ class UserModel extends BaseModel
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+    public function findByUsernameAndPassword($username, $password)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE username = ? AND password = SHA1(?)";
+        $stmt = $this->pdo()->prepare($sql);
+        $stmt->execute([$username, $password]);
 
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
     public function generateRandomSessionId($length = 32)
     {
         return bin2hex(random_bytes($length));

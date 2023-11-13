@@ -33,13 +33,15 @@ class App
         }
         // 获取控制器类名和方法名
         $controllerClass = "\\App\\Controllers\\" . ucfirst($route['controller']) . 'Controller';
-        $method = strtolower($requestMethod) . ucfirst($route['action']);
+        $method = $route['action'];
+        $method .= 'Action';
 
+        $params = $route['params'] ?? [];
         // 实例化控制器并调用方法
         if (class_exists($controllerClass)) {
-            $controller = new $controllerClass($user);
+            $controller = new $controllerClass($user, $params);
             if (method_exists($controller, $method)) {
-                $controller->$method($route['params']);
+                $controller->$method();
             } else {
                 $this->notFound();
             }
@@ -51,9 +53,11 @@ class App
     private function parseRoute($requestUri)
     {
         $uriParts = explode('/', trim($requestUri, '/'));
-
-        $controller = isset($uriParts[0]) ? $uriParts[0] : 'home';
-        $action = isset($uriParts[1]) ? $uriParts[1] : 'index';
+        $controller = 'home';
+        if (!empty($uriParts[0])) {
+            $controller = $this->convertToCamelCase($uriParts[0]);
+        }
+        $action = $this->convertToCamelCase($uriParts[1] ?? 'welcome');
         $params = array_slice($uriParts, 2);
 
         return [
@@ -63,6 +67,14 @@ class App
         ];
     }
 
+    private function convertToCamelCase($input)
+    {
+        // 使用 ucwords 将每个单词的首字母大写
+        // 使用 str_replace 将下划线替换为空格
+        // 使用 lcfirst 将第一个单词的首字母小写
+        return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $input))));
+    }
+
     private function notFound()
     {
         header("HTTP/1.0 404 Not Found");
@@ -70,19 +82,24 @@ class App
         exit();
     }
 
+    private function reHome()
+    {
+        header("Location: /home/welcome");
+        exit();
+    }
+
+
     private function authenticateUser($sessionId)
     {
         $userModel = new UserModel();
         $user = $userModel->findBySessionId($sessionId);
 
-        if (empty($user)) {
+        if (!empty($user)) {
             // 用户已登录，可以进行相关操作
             return $user;
         } else {
             // 用户未登录
-            header("HTTP/1.0 401 Unauthorized");
-            echo "401 Unauthorized";
-            exit();
+           $this->reHome();
         }
     }
 
@@ -90,8 +107,9 @@ class App
     {
         $whitelist = [
             'user/login',
-            'user/process-login',
+            'user/processLogin',
             'user/logout',
+            'home/welcome',
         ];
 
         return in_array($route['controller'] . '/' . $route['action'], $whitelist);
