@@ -102,6 +102,24 @@ abstract class BaseModel
         }
     }
 
+    public function count()
+    {
+        $sql = "SELECT count(1) as total FROM {$this->table}";
+        $stmt = $this->pdo()->prepare($sql);
+        $stmt->execute();
+        $totalInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $totalInfo['total'] ?? 0;
+    }
+
+    public function executePDO($sql, $params = [])
+    {
+        $stmt = $this->pdo()->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt;
+    }
+
     /**
      * @return \PDO
      */

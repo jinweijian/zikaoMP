@@ -6,8 +6,6 @@ SELECT
 FROM
     classes c
         JOIN
-    class_members cm ON c.id = cm.class_id
-        JOIN
-    students s ON cm.student_id = s.id
+    students s ON c.id = s.class_id
 ORDER BY
     c.class_name, s.total_score DESC;
