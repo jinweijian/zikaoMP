@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学生列表</title>
+    <title>教师列表</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -16,10 +16,10 @@
         <?php echo getNavbar($user); ?>
 
         <div class="col-md-9">
-            <h1>学生列表</h1>
+            <h1>教师列表</h1>
             <div class='d-flex justify-content-between align-items-center'>
                 <div>
-                    <a href='/student/create' class='btn btn-danger'>创建学生</a>
+                    <a href='/teacher/create' class='btn btn-danger'>创建教师</a>
                 </div>
             </div>
             <table class="table table-bordered table-hover">
@@ -27,20 +27,18 @@
                 <tr>
                     <th>ID</th>
                     <th>姓名</th>
-                    <th>性别</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($students as $student): ?>
+                <?php foreach ($teachers as $teacher): ?>
                     <tr>
-                        <td><?php echo $student['id']; ?></td>
-                        <td><?php echo $student['name']; ?></td>
-                        <td><?php echo $student['gender']; ?></td>
+                        <td><?php echo $teacher['id']; ?></td>
+                        <td><?php echo $teacher['name']; ?></td>
                         <td>
-                            <a href="/student/search?id=<?php echo $student['id']; ?>" class="btn btn-info btn-sm">查看</a>
-                            <a href="/student/edit?id=<?php echo $student['id']; ?>" class="btn btn-warning btn-sm">编辑</a>
-                            <a href="/student/delete?id=<?php echo $student['id']; ?>&timespan=<?php echo time()?>" class="btn btn-danger btn-sm">删除</a>
+                            <a href="/teacher/search?id=<?php echo $teacher['id']; ?>" class="btn btn-info btn-sm">查看</a>
+                            <a href="/teacher/edit?id=<?php echo $teacher['id']; ?>" class="btn btn-warning btn-sm">编辑</a>
+                            <a href="/teacher/delete?id=<?php echo $teacher['id']; ?>&timespan=<?php echo time()?>" class="btn btn-danger btn-sm">删除</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

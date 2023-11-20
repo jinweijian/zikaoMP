@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '用户ID',
     username VARCHAR(255) NOT NULL COMMENT '用户名',
     password VARCHAR(255) NOT NULL COMMENT '密码',
-    role ENUM('student', 'teacher', 'admin') NOT NULL DEFAULT 'student' COMMENT '用户角色'
+    role ENUM('student', 'teacher', 'admin') NOT NULL DEFAULT 'student' COMMENT '用户角色',
+    UNIQUE KEY `usernameUnique` (`username`)
 ) COMMENT '登录用户表';
 
 -- 创建教师表
@@ -12,7 +13,10 @@ CREATE TABLE IF NOT EXISTS teachers (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '教师ID',
     user_id INT COMMENT '关联用户ID',
     name VARCHAR(255) NOT NULL COMMENT '教师姓名',
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    phone_number VARCHAR(255) NOT NULL COMMENT '手机号',
+    card_id VARCHAR(18) NOT NULL COMMENT '身份证号码',
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE KEY `cardIdUnique` (`card_id`)
 ) COMMENT '教师表';
 
 -- 创建班级表
@@ -32,9 +36,12 @@ CREATE TABLE IF NOT EXISTS students (
     gender VARCHAR(10) COMMENT '性别',
     address VARCHAR(255) COMMENT '地址',
     class_id INT NOT NULL COMMENT '班级ID',
+    card_id VARCHAR(18) NOT NULL COMMENT '身份证号码',
     total_score int COMMENT '成绩总分',
+    phone_number VARCHAR(255) NOT NULL COMMENT '手机号',
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (class_id) REFERENCES classes(id)
+    FOREIGN KEY (class_id) REFERENCES classes(id),
+    UNIQUE KEY `cardIdUnique` (`card_id`)
 ) COMMENT '学生表';
 
 

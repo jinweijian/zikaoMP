@@ -3,12 +3,12 @@
 function getNavbar($user): string
 {
     $sidebarItems = [
+        ['name' => '教师管理', 'url' => '/teacher/list'],
+        ['name' => '班级管理', 'url' => '/class/list'],
         ['name' => '学生列表', 'url' => '/student/list'],
-        ['name' => '用户列表', 'url' => '/admin/users'],
+        ['name' => '用户列表', 'url' => '/user/list'],
         ['name' => '查询用户', 'url' => '/admin/search-user'],
         ['name' => '统计学生成绩', 'url' => '/admin/statistics'],
-        ['name' => '教师信息', 'url' => '/admin/teachers'],
-        ['name' => '班级管理', 'url' => '/admin/classes'],
     ];
     $html = '<div class="col-md-3"><h3>导航</h3><ul class="list-group">';
     foreach ($sidebarItems as $item) {
@@ -78,4 +78,29 @@ function generatePagination($currentPage, $totalPages): string
 function perPage($page, $size)
 {
     return [($page - 1) * $size, $size];
+}
+
+function systemLog(string $level, string $message, array $data = [])
+{
+    $content = date('Y-m-d H:i:s');
+    $content .= " [$level] ";
+    $content .= " [$message] ";
+    if (!empty($data)){
+        $content .= json_encode($data);
+    }
+    $content .= PHP_EOL;
+    $filename = FILE_PATH . '/logs/system.log';
+
+    file_put_contents($filename, $content, FILE_APPEND);
+}
+
+function parts(array $array, array $keys)
+{
+    foreach (array_keys($array) as $key) {
+        if (!in_array($key, $keys)) {
+            unset($array[$key]);
+        }
+    }
+
+    return $array;
 }

@@ -2,11 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Model\TeacherModel;
+
 abstract class BaseController
 {
     protected $loginUser = []; // TODO 换成类
 
     protected $role = 'visitor';
+
+    protected $userId = -1;
 
     protected $params = [];
 
@@ -14,6 +18,7 @@ abstract class BaseController
     {
         $this->loginUser = $loginUser;
         $this->role = $loginUser['role'] ?? 'visitor';
+        $this->userId = $loginUser['id'] ?? -1;
         $this->params = $params;
     }
 
@@ -25,6 +30,15 @@ abstract class BaseController
     protected function isAdmin():bool
     {
         return $this->role == 'admin';
+    }
+
+    protected function getTeacherInfo()
+    {
+        if ($this->role != 'teacher') {
+            return [];
+        }
+        $teacherModel = new TeacherModel();
+        return $teacherModel->findByUserId($this->userId);
     }
 
     protected function view($slug, $data = [])
@@ -48,4 +62,16 @@ abstract class BaseController
         header("HTTP/1.0 401 Not Permission");
         echo "401 您没有该功能/页面的权限";
         exit();
-    }}
+    }
+
+    protected function getRequestMethod()
+    {
+        // 处理登录请求
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
+    protected function requestIsPost()
+    {
+        return $this->getRequestMethod() == 'POST';
+    }
+}

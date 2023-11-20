@@ -8,7 +8,7 @@ abstract class BaseModel
 
     public function get($id)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE id = ?";
+        $sql = "SELECT * FROM `{$this->table}` WHERE id = ?";
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute([$id]);
 
@@ -20,16 +20,19 @@ abstract class BaseModel
         $columns = implode(', ', array_keys($data));
         $values = implode(', ', array_fill(0, count($data), '?'));
 
-        $sql = "INSERT INTO {$this->table} ({$columns}) VALUES ({$values})";
+        $sql = "INSERT INTO `{$this->table}` ({$columns}) VALUES ({$values})";
         $stmt = $this->pdo()->prepare($sql);
-        $stmt->execute(array_values($data));
+        $res = $stmt->execute(array_values($data));
+        if (!$res) {
+            systemLog('error', "sql error: {$sql}", $stmt->errorInfo());
+        }
 
         return $this->pdo()->lastInsertId();
     }
 
     public function delete($id)
     {
-        $sql = "DELETE FROM {$this->table} WHERE id = ?";
+        $sql = "DELETE FROM `{$this->table}` WHERE id = ?";
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute([$id]);
 
@@ -44,7 +47,7 @@ abstract class BaseModel
         }
         $columns = rtrim($columns, ', ');
 
-        $sql = "UPDATE {$this->table} SET {$columns} WHERE id = ?";
+        $sql = "UPDATE `{$this->table}` SET {$columns} WHERE id = ?";
         $values = array_values($data);
         $values[] = $id;
 
@@ -73,7 +76,7 @@ abstract class BaseModel
                 }, array_keys($orderBy), $orderBy));
         }
 
-        $sql = "SELECT {$columns} FROM {$this->table} {$where} {$order} LIMIT {$start}, {$limit}";
+        $sql = "SELECT {$columns} FROM `{$this->table}` {$where} {$order} LIMIT {$start}, {$limit}";
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute(array_values($conditions));
 
@@ -82,7 +85,7 @@ abstract class BaseModel
 
     public function all()
     {
-        $sql = "SELECT * FROM {$this->table}";
+        $sql = "SELECT * FROM `{$this->table}`";
         $stmt = $this->pdo()->query($sql);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -104,7 +107,7 @@ abstract class BaseModel
 
     public function count()
     {
-        $sql = "SELECT count(1) as total FROM {$this->table}";
+        $sql = "SELECT count(1) as `total` FROM ``{$this->table}``";
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute();
         $totalInfo = $stmt->fetch(\PDO::FETCH_ASSOC);

@@ -20,7 +20,7 @@ class UserController extends BaseController
     public function processLoginAction()
     {
         // 处理登录请求
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        if (!$this->requestIsPost()) {
             $this->location('/');
         }
         // 获取用户提交的用户名和密码
