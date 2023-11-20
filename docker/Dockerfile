@@ -19,6 +19,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # 安装 MySQL 客户端
 RUN apt-get update && apt-get install -y default-mysql-client
 
+RUN docker-php-ext-install pdo pdo_mysql
+
 # 配置 Nginx
 COPY nginx/default.conf /etc/nginx/sites-available/default
 

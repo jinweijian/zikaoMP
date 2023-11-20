@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: zikaoWeb
     volumes:
       - ../:/var/www/html
     ports:
@@ -14,13 +15,17 @@ services:
       - mysql
   php:
     image: php:7.4-fpm
+    container_name: zikaoPhp
     volumes:
       - ../:/var/www/html
   mysql:
     image: mysql:8.0
+    container_name: zikaoMysql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: zikaoMP
       MYSQL_USER: zikao
       MYSQL_PASSWORD: 123456
+    volumes:
+      - ../mysql:/etc/mysql/conf.d
 
