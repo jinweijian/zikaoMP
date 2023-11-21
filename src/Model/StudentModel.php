@@ -37,4 +37,20 @@ class StudentModel extends BaseModel
 
         return $totalInfo['total'] ?? 0;
     }
+
+    public function countByClassId($classId)
+    {
+        $where = '';
+        if ($classId != 'admin') {
+            $where = 'AND class_id = ?';
+        }
+        $sql = "SELECT count(1) as total FROM {$this->table} WHERE 1=1 {$where}";
+        $studentStatement = $this->executePDO($sql, [$classId]);
+        if ($studentStatement === false) {
+            return [];
+        }
+        $totalInfo = $studentStatement->fetch(\PDO::FETCH_ASSOC);
+
+        return $totalInfo['total'] ?? 0;
+    }
 }

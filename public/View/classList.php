@@ -27,6 +27,7 @@
                 <tr>
                     <th>ID</th>
                     <th>班级名称</th>
+                    <th>辅导员</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -35,8 +36,9 @@
                     <tr>
                         <td><?php echo $class['id']; ?></td>
                         <td><?php echo $class['class_name']; ?></td>
+                        <td><?php echo $class['teacher_name']; ?></td>
                         <td>
-                            <a href="/class/search?id=<?php echo $class['id']; ?>" class="btn btn-info btn-sm">查看</a>
+                            <a href="/class/detail?id=<?php echo $class['id']; ?>" class="btn btn-info btn-sm">查看</a>
                             <a href="/class/edit?id=<?php echo $class['id']; ?>" class="btn btn-warning btn-sm">编辑</a>
                             <a href="/class/delete?id=<?php echo $class['id']; ?>&timespan=<?php echo time()?>" class="btn btn-danger btn-sm">删除</a>
                         </td>

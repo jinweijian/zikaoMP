@@ -36,9 +36,31 @@
                         <td><?php echo $teacher['id']; ?></td>
                         <td><?php echo $teacher['name']; ?></td>
                         <td>
-                            <a href="/teacher/search?id=<?php echo $teacher['id']; ?>" class="btn btn-info btn-sm">查看</a>
+                            <a href="/teacher/detail?id=<?php echo $teacher['id']; ?>" class="btn btn-info btn-sm">查看</a>
                             <a href="/teacher/edit?id=<?php echo $teacher['id']; ?>" class="btn btn-warning btn-sm">编辑</a>
-                            <a href="/teacher/delete?id=<?php echo $teacher['id']; ?>&timespan=<?php echo time()?>" class="btn btn-danger btn-sm">删除</a>
+                            <!-- 加入删除确认弹窗 -->
+                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal<?php echo $teacher['id']; ?>">删除</a>
+
+                            <!-- 删除确认弹窗 -->
+                            <div class="modal fade" id="deleteModal<?php echo $teacher['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">确认删除教师</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            确定要删除教师 "<?php echo $teacher['name']; ?>" 吗？
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <a href="/teacher/delete?id=<?php echo $teacher['id']; ?>&timespan=<?php echo time(); ?>" class="btn btn-danger">删除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
