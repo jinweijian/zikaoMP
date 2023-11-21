@@ -106,12 +106,6 @@ class TeacherController extends BaseController
     public function deleteAction()
     {
         $id = $this->params['id'];
-        $deleteTime = $this->params['timespan'] ?? 0;
-        if (empty($id) || $deleteTime <= time() - 60) {
-            header("HTTP/1.0 422 ");
-            echo "422 参数不合法/页面已过期";
-            exit();
-        }
         if (!$this->isAdmin()) {
             $this->notPermission();
         }
