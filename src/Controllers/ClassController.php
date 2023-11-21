@@ -92,7 +92,7 @@ class ClassController extends BaseController
     public function editAction()
     {
         $id = $this->params['id'];
-        if (!$this->isAdmin()) {
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
         $classModel = new ClassModel();
