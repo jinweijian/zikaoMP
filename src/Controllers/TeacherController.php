@@ -7,6 +7,8 @@ use App\Model\TeacherModel;
 
 class TeacherController extends BaseController
 {
+    protected $menuSlug = 'teacher';
+
     public function createAction()
     {
         if (!$this->isAdmin()) {

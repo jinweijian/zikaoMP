@@ -19,7 +19,7 @@ $currentTime = date('H:i');
     <?php echo getHeard($user);?>
 
     <div class="row mt-4">
-        <?php echo getNavbar($user);?>
+        <?php echo getNavbar($user, $menuSlug);?>
 
         <div class="col-md-9">
             <!-- 主要内容区域，根据侧边栏导航点击的不同页面进行展示 -->

@@ -6,6 +6,7 @@ use App\Model\TeacherModel;
 
 abstract class BaseController
 {
+    protected $menuSlug = '';
     protected $loginUser = []; // TODO 换成类
 
     protected $role = 'visitor';
@@ -46,6 +47,7 @@ abstract class BaseController
         $data['user'] = $this->loginUser;
         $data['isTeacher'] = $this->isTeacher();
         $data['isAdmin'] = $this->isAdmin();
+        $data['menuSlug'] = $this->menuSlug;
         extract($data);
         // 显示登录页面
         include __DIR__ . "/../../public/View/{$slug}.php";

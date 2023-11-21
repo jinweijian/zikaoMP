@@ -15,7 +15,7 @@
 
     <div class="row mt-3">
         <!-- 侧边栏 -->
-        <?php echo getNavbar($user);?>
+        <?php echo getNavbar($user, $menuSlug);?>
 
         <!-- 表单 -->
         <div class="col-md-9">

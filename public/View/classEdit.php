@@ -11,7 +11,7 @@
 <div class="container mt-4">
 
     <!-- 导航栏与头部 -->
-    <?php echo getHeard($user);?>
+    <?php echo getHeard($user, $menuSlug);?>
 
     <div class="row mt-3">
         <!-- 侧边栏 -->

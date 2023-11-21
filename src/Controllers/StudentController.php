@@ -8,6 +8,7 @@ use App\Model\TeacherModel;
 
 class StudentController extends BaseController
 {
+    protected $menuSlug = 'student';
     public function listAction()
     {
         if (!$this->isTeacher()) {

@@ -6,6 +6,8 @@ use App\Model\UserModel;
 
 class UserController extends BaseController
 {
+    protected $menuSlug = 'user';
+
     public function loginAction()
     {
         // 判断是否登录
