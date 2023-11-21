@@ -22,8 +22,6 @@ class StudentController extends BaseController
 
         $studentCount = $studentModel->count();
 
-        $totalPage = ceil($studentCount / $size);
-
         $teacherId = $this->getTeacherInfo()['id'] ?? 0;
         if ($this->isAdmin()) {
             $teacherId = 'admin';
@@ -33,7 +31,7 @@ class StudentController extends BaseController
 
         $this->view('studentList', [
             'page' => $page,
-            'totalPage' => $totalPage,
+            'total' => $studentCount,
             'students' => $students
         ]);
     }

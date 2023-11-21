@@ -44,8 +44,9 @@ function getGreeting($time)
     }
 }
 
-function generatePagination($currentPage, $totalPages): string
+function generatePagination($currentPage, $total, $limit = 10): string
 {
+    $totalPages = ceil($total / $limit);
     $html = '<nav aria-label="Page navigation">';
     $html .= '<ul class="pagination justify-content-center">';
 

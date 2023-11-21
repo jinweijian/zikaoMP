@@ -38,13 +38,11 @@ class TeacherController extends BaseController
         $teacherModel = new TeacherModel();
         $teacherCount = $teacherModel->count();
 
-        $totalPage = ceil($teacherCount / $size);
-
         $teachers = $teacherModel->search([], ['id' => 'DESC',], $start, $limit);
 
         $this->view('teacherList', [
             'page' => $page,
-            'totalPage' => $totalPage,
+            'total' => $teacherCount,
             'teachers' => $teachers,
         ]);
     }
@@ -72,7 +70,7 @@ class TeacherController extends BaseController
             'classes' => $classes,
             'teacher' => $teacher,
             'page' => $page,
-            'classTotalPage' => $teacherCount,
+            'classTotal' => $teacherCount,
         ]);
     }
 

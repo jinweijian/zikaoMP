@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">班级名称: <?php echo $class['class_name']; ?></h5>
-                    <h6 class="card-title">班级学生数量: <?php echo $studentTotalPage; ?></h6>
+                    <h6 class="card-title">班级学生数量: <?php echo $studentTotal; ?></h6>
                     <!-- 其他班级信息... -->
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     </tbody>
                 </table>
                 <!-- 分页器 -->
-                <?php echo generatePagination($page, $studentTotalPage);?>
+                <?php echo generatePagination($page, $studentTotal);?>
             </div>
         </div>
     </div>

@@ -72,7 +72,7 @@
             </table>
 
             <!-- 分页器 -->
-            <?php echo generatePagination($page, $totalPage);?>
+            <?php echo generatePagination($page, $total);?>
         </div>
     </div>
 </div>

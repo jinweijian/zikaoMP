@@ -43,8 +43,6 @@ class ClassController extends BaseController
         $classModel = new ClassModel();
         $classCount = $classModel->count();
 
-        $totalPage = ceil($classCount / $size);
-
         $teacherInfo = $this->getTeacherInfo();
         $teacherId = $teacherInfo['id'] ?? -1;
 
@@ -56,7 +54,7 @@ class ClassController extends BaseController
 
         $this->view('classList', [
             'page' => $page,
-            'totalPage' => $totalPage,
+            'total' => $classCount,
             'classes' => $classes,
         ]);
     }
@@ -85,7 +83,7 @@ class ClassController extends BaseController
             'class' => $class,
             'students' => $students,
             'page' => $page,
-            'studentTotalPage' => $studentCount,
+            'studentTotal' => $studentCount,
         ]);
     }
 

@@ -52,7 +52,7 @@
                     </tbody>
                 </table>
                 <!-- 分页器 -->
-                <?php echo generatePagination($page, $classTotalPage);?>
+                <?php echo generatePagination($page, $classTotal);?>
             </div>
         </div>
     </div>

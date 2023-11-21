@@ -107,7 +107,7 @@ abstract class BaseModel
 
     public function count()
     {
-        $sql = "SELECT count(1) as `total` FROM ``{$this->table}``";
+        $sql = "SELECT count(1) as `total` FROM `{$this->table}`";
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute();
         $totalInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
