@@ -36,8 +36,11 @@ class UserModel extends BaseModel
     {
         $sql = "SELECT * FROM {$this->table} WHERE username = ? AND password = SHA1(?)";
         $stmt = $this->pdo()->prepare($sql);
-        $stmt->execute([$username, $password]);
+        $res = $stmt->execute([$username, $password]);
 
+        if (!$res) {
+            systemLog('error', "login sql error: {$sql}", $stmt->errorInfo());
+        }
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
     public function generateRandomSessionId($length = 32)

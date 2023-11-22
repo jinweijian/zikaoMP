@@ -27,5 +27,5 @@ services:
       MYSQL_USER: zikao
       MYSQL_PASSWORD: 123456
     volumes:
-      - ../mysql:/etc/mysql/conf.d
+      - ./mysql:/etc/mysql/conf.d
 
