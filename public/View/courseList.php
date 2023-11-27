@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程列表</title>
+    <title>选课列表</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -15,10 +15,10 @@
         <?php echo getNavbar($user, $menuSlug); ?>
 
         <div class="col-md-9">
-            <h1>课程列表</h1>
+            <h1>选课列表</h1>
             <div class='d-flex justify-content-between align-items-center'>
                 <div>
-                    <a href='/course/create' class='btn btn-danger'>创建课程</a>
+                    <a href='/course/create' class='btn btn-danger'>创建选课</a>
                 </div>
             </div>
             <!-- 列表 -->
@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>课程名称</th>
+                    <th>选课名称</th>
                     <th>教师</th>
                     <th>操作</th>
                 </tr>
@@ -40,7 +40,7 @@
                         <td>
                             <a href="/course/detail?id=<?php echo $course['id']; ?>" class="btn btn-info btn-sm">详情</a>
                             <a href="/course/edit?id=<?php echo $course['id']; ?>" class="btn btn-warning btn-sm">编辑</a>
-                            <a href="/course/delete?id=<?php echo $course['id']; ?>&timespan=<?php echo time(); ?>" class="btn btn-danger btn-sm" onclick="return confirm('确定删除该课程吗？')">删除</a>
+                            <a href="/course/delete?id=<?php echo $course['id']; ?>&timespan=<?php echo time(); ?>" class="btn btn-danger btn-sm" onclick="return confirm('确定删除该选课吗？')">删除</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

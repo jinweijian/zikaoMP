@@ -16,7 +16,7 @@ class CourseController extends BaseController
         }
 
         if ($this->requestIsPost()) {
-            // 创建课程
+            // 创建选课
             $courseData = parts($_POST, ['course_name', 'teacher_id']);
             if (!empty($courseData)) {
                 $courseModel = new CourseModel();
@@ -81,7 +81,7 @@ class CourseController extends BaseController
 
         $courseModel = new CourseModel();
         if ($this->requestIsPost() && $id == $_POST['id']) {
-            // 修改课程
+            // 修改选课
             $courseData = parts($_POST, ['course_name', 'teacher_id']);
             if (!empty($courseData)) {
                 $courseModel->update($id, $courseData);

@@ -63,6 +63,20 @@ CREATE TABLE IF NOT EXISTS grades (
     FOREIGN KEY (course_id) REFERENCES courses(id)
 ) COMMENT '成绩表';
 
+-- 学生选课关系表
+CREATE TABLE `student_course_relation` (
+   `id` int NOT NULL AUTO_INCREMENT COMMENT '关系ID',
+   `student_id` int DEFAULT NULL COMMENT '学生ID',
+   `course_id` int DEFAULT NULL COMMENT '课程ID',
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `unique_relationship` (`student_id`, `course_id`), -- 唯一索引
+   KEY `student_id` (`student_id`),
+   KEY `course_id` (`course_id`),
+   CONSTRAINT `relationship_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+   CONSTRAINT `relationship_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='学生选课关系表';
+
+
 -- 修改
 ALTER TABLE users
     ADD COLUMN session_id VARCHAR(255) COMMENT '登录凭证';

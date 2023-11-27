@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>创建课程</title>
+    <title>创建选课</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -15,11 +15,11 @@
         <?php echo getNavbar($user, $menuSlug); ?>
 
         <div class="col-md-9">
-            <h1>创建课程</h1>
+            <h1>创建选课</h1>
             <!-- 表单 -->
             <form method="post" action="/course/create">
                 <div class="form-group">
-                    <label for="course_name">课程名称</label>
+                    <label for="course_name">选课名称</label>
                     <input type="text" class="form-control" id="course_name" name="course_name" required>
                 </div>
                 <div class="form-group">
@@ -30,7 +30,7 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">创建课程</button>
+                <button type="submit" class="btn btn-primary">创建选课</button>
             </form>
         </div>
     </div>

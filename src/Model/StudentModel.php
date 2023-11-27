@@ -21,6 +21,15 @@ class StudentModel extends BaseModel
         return $studentStatement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function findByUserId($userId)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE user_id = ?";
+        $stmt = $this->pdo()->prepare($sql);
+        $stmt->execute([$userId]);
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function getStudentCountByTeacherId($teacherId) {
         $where = '';
         if ($teacherId != 'admin') {

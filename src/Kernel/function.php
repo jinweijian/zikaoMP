@@ -1,16 +1,37 @@
 <?php
 
+function isAdmin($user) : bool
+{
+    return 'admin' == ($user['role'] ?? '');
+}
+
+function isTeacher($user) : bool
+{
+    return 'teacher' == ($user['role'] ?? '');
+}
+
+function isStudent($user) : bool
+{
+    return 'student' == ($user['role'] ?? '');
+}
+
 function getNavbar($user, $currentSlug = ''): string
 {
-    $sidebarItems = [
-        ['name' => '教师管理', 'url' => '/teacher/list', 'slug' => 'teacher'],
-        ['name' => '班级管理', 'url' => '/class/list', 'slug' => 'class'],
-        ['name' => '课程管理', 'url' => '/course/list', 'slug' => 'course'],
-        ['name' => '学生列表', 'url' => '/student/list', 'slug' => 'student'],
-        ['name' => '管理学生成绩', 'url' => '/grade/list', 'slug' => 'grade'],
-        ['name' => '用户列表', 'url' => '/user/list', 'slug' => 'user'],
-        ['name' => '选课报名', 'url' => '/course/list', 'slug' => 'user'],
-    ];
+    $sidebarItems = [];
+    if (isStudent($user)) {
+        $sidebarItems[] = ['name' => '选课报名', 'url' => '/courseRegistration/enroll', 'slug' => 'courseRegistration'];
+    }
+    if (isTeacher($user) || isAdmin($user)) {
+        $sidebarItems[] = ['name' => '学生列表', 'url' => '/student/list', 'slug' => 'student'];
+        $sidebarItems[] = ['name' => '管理学生成绩', 'url' => '/grade/list', 'slug' => 'grade'];
+    }
+    if (isAdmin($user)) {
+        $sidebarItems[] = ['name' => '教师管理', 'url' => '/teacher/list', 'slug' => 'teacher'];
+        $sidebarItems[] = ['name' => '班级管理', 'url' => '/class/list', 'slug' => 'class'];
+        $sidebarItems[] = ['name' => '选课管理', 'url' => '/course/list', 'slug' => 'course'];
+        $sidebarItems[] = ['name' => '用户列表', 'url' => '/user/list', 'slug' => 'user'];
+    }
+
     $html = '<div class="col-md-3"><h3>导航</h3><ul class="list-group">';
     foreach ($sidebarItems as $item) {
         $isSelected = ''; // 添加选中样式

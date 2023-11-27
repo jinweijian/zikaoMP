@@ -47,4 +47,13 @@ class UserModel extends BaseModel
     {
         return bin2hex(random_bytes($length));
     }
+
+    public function changePassword($userId, $newPassword)
+    {
+        $sql = "UPDATE {$this->table} SET password = SHA1(?)  WHERE id = ?";
+        $stmt = $this->pdo()->prepare($sql);
+        $stmt->execute([$newPassword, $userId]);
+
+        return $stmt->rowCount();
+    }
 }

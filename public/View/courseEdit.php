@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>编辑课程</title>
+    <title>编辑选课</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -15,12 +15,12 @@
         <?php echo getNavbar($user, $menuSlug); ?>
 
         <div class="col-md-9">
-            <h1>编辑课程</h1>
+            <h1>编辑选课</h1>
             <!-- 表单 -->
             <form method="post" action="/course/edit?id=<?php echo $course['id']; ?>">
                 <input type="hidden" name="id" value="<?php echo $course['id']; ?>">
                 <div class="form-group">
-                    <label for="course_name">课程名称</label>
+                    <label for="course_name">选课名称</label>
                     <input type="text" class="form-control" id="course_name" name="course_name" value="<?php echo $course['course_name']; ?>" required>
                 </div>
                 <div class="form-group">

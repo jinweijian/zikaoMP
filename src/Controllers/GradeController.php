@@ -23,7 +23,7 @@ class GradeController extends BaseController
         $gradeModel = new GradeModel();
         $gradeCount = $gradeModel->count();
 
-        $grades = $gradeModel->search([], ['id' => 'DESC'], $start, $limit);
+        $grades = $gradeModel->getGrades($start, $limit);
 
         $this->view('gradeList', [
             'page' => $page,
@@ -40,17 +40,17 @@ class GradeController extends BaseController
         }
 
         $gradeModel = new GradeModel();
-        $courseModel = new CourseModel();
         $studentModel = new StudentModel();
+        $courseModel = new CourseModel();
 
         $grade = $gradeModel->get($id);
-        $course = $courseModel->get($grade['course_id']);
         $student = $studentModel->get($grade['student_id']);
+        $course = $courseModel->get($grade['course_id']);
 
         $this->view('gradeDetail', [
             'grade' => $grade,
-            'course' => $course,
             'student' => $student,
+            'course' => $course,
         ]);
     }
 
@@ -64,16 +64,21 @@ class GradeController extends BaseController
         $gradeModel = new GradeModel();
         if ($this->requestIsPost() && $id == $_POST['id']) {
             // 修改
-            $grade = parts($_POST, ['score']);
+            $grade = parts($_POST, ['student_id', 'course_id', 'score']);
             if (!empty($grade)) {
                 $gradeModel->update($id, $grade);
             }
             // 跳转
             $this->location('/grade/list');
         }
+
         $grade = $gradeModel->get($id);
+        $students = (new StudentModel())->search([], ['id' => 'DESC'], 0, PHP_INT_MAX, ['id', 'name']);
+        $courses = (new CourseModel())->search([], ['id' => 'DESC'], 0, PHP_INT_MAX, ['id', 'name']);
 
         $this->view('gradeEdit', [
+            'students' => $students,
+            'courses' => $courses,
             'grade' => $grade,
         ]);
     }
@@ -96,4 +101,53 @@ class GradeController extends BaseController
         // 跳转
         $this->location('/grade/list');
     }
+
+    public function createAction()
+    {
+        if (!$this->isAdmin()) {
+            $this->notPermission();
+        }
+
+        if ($this->requestIsPost()) {
+            // 处理表单提交
+            $studentId = $_POST['student_id'] ?? null;
+            $courseId = $_POST['course_id'] ?? null;
+            $score = $_POST['score'] ?? null;
+
+            if ($studentId && $courseId && $score !== null) {
+                $gradeModel = new GradeModel();
+                $gradeModel->create([
+                    'student_id' => $studentId,
+                    'course_id' => $courseId,
+                    'score' => $score,
+                ]);
+            }
+
+            // 跳转
+            $this->location('/grade/list');
+        }
+
+        // 获取学生列表和课程列表
+        $studentModel = new StudentModel();
+        $students = $studentModel->search([], ['id' => 'DESC'], 0, PHP_INT_MAX, ['id', 'name']);
+
+        $this->view('gradeAdd', [
+            'students' => $students,
+        ]);
+    }
+
+    public function getCoursesAction()
+    {
+        $studentId = $_POST['student_id'] ?? null;
+
+        if ($studentId !== null) {
+            $courseModel = new CourseModel();
+            $courses = $courseModel->getCoursesByStudentId($studentId);
+
+            echo json_encode($courses);
+        }
+
+        exit();
+    }
+
 }

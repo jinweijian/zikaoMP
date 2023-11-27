@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Model\StudentCourseModel;
+use App\Model\StudentModel;
 use App\Model\TeacherModel;
 
 abstract class BaseController
@@ -40,6 +42,15 @@ abstract class BaseController
         }
         $teacherModel = new TeacherModel();
         return $teacherModel->findByUserId($this->userId);
+    }
+
+    protected function getStudentInfo()
+    {
+        if ($this->role != 'student') {
+            return [];
+        }
+        $studentModel = new StudentModel();
+        return $studentModel->findByUserId($this->userId);
     }
 
     protected function view($slug, $data = [])

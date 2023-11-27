@@ -62,4 +62,40 @@ class UserController extends BaseController
 
         $this->location('/');
     }
+
+    public function listAction()
+    {
+        // 获取用户列表
+        $userModel = new UserModel();
+
+        $page = $this->params['page'] ?? 1;
+        $size = $this->params['size'] ?? 10;
+        [$start, $limit] = perPage($page, $size);
+
+        $userTotal = $userModel->count();
+        $users = $userModel->search([], ['id' => 'DESC'], $start, $limit, ['id', 'username', 'role']);
+
+        $this->view('userList', [
+            'page' => $page,
+            'total' => $userTotal,
+            'users' => $users,
+        ]);
+    }
+
+    public function changePasswordAction()
+    {
+        // 处理修改密码操作
+        if ($this->requestIsPost()) {
+            $userId = $_POST['user_id'];
+            $newPassword = $_POST['new_password'];
+
+            $userModel = new UserModel();
+            $userModel->changePassword($userId, $newPassword);
+
+            // 返回一个 JSON 响应
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true]);
+            exit();
+        }
+    }
 }
