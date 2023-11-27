@@ -51,8 +51,18 @@ function getNavbar($user, $currentSlug = ''): string
 function getHeard($user): string
 {
     $user['username'] = $user['username'] ?? 'Guide';
+    $welcome = "";
+    if (isTeacher($user)) {
+        $welcome = '欢迎您！老师！ ';
+    }
+    if (isAdmin($user)) {
+        $welcome = '管理员您好！ ';
+    }
+    if (isStudent($user)) {
+        $welcome = '同学你好！ ';
+    }
     return "<div class='d-flex justify-content-between align-items-center'>
-        <h2>欢迎您, {$user['username']}!</h2>
+        <h2>{$welcome} {$user['username']}!</h2>
 
         <div>
             <a href='/user/logout' class='btn btn-danger'>Logout</a>
