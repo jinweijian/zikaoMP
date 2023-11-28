@@ -22,7 +22,6 @@ $currentTime = date('H:i');
         <?php echo getNavbar($user, $menuSlug);?>
 
         <div class="col-md-9">
-            <!-- 主要内容区域，根据侧边栏导航点击的不同页面进行展示 -->
             <h2><?php echo getGreeting($currentTime); ?></h2>
             <p>欢迎使用.</p>
         </div>
