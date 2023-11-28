@@ -89,9 +89,15 @@ function generatePagination($currentPage, $total, $limit = 10): string
     $html = '<nav aria-label="Page navigation">';
     $html .= '<ul class="pagination justify-content-center">';
 
+    $param = $_GET;
+    $paramUrl = "?";
+    if (!empty($param)) {
+        $paramUrl.= http_build_query($param)."&";
+    }
+
     // 上一页按钮
     $html .= '<li class="page-item ' . ($currentPage == 1 ? 'disabled' : '') . '">';
-    $html .= '<a class="page-link" href="?page=' . ($currentPage - 1) . '" aria-label="Previous">';
+    $html .= '<a class="page-link" href="'. $paramUrl .'page=' . ($currentPage - 1) . '" aria-label="Previous">';
     $html .= '<span aria-hidden="true">&laquo;</span>';
     $html .= '</a>';
     $html .= '</li>';
@@ -99,13 +105,13 @@ function generatePagination($currentPage, $total, $limit = 10): string
     // 生成页码按钮
     for ($i = 1; $i <= $totalPages; $i++) {
         $html .= '<li class="page-item ' . ($currentPage == $i ? 'active' : '') . '">';
-        $html .= '<a class="page-link" href="?page=' . $i . '">' . $i . '</a>';
+        $html .= '<a class="page-link" href="'. $paramUrl .'page=' . $i . '">' . $i . '</a>';
         $html .= '</li>';
     }
 
     // 下一页按钮
     $html .= '<li class="page-item ' . ($currentPage == $totalPages ? 'disabled' : '') . '">';
-    $html .= '<a class="page-link" href="?page=' . ($currentPage + 1) . '" aria-label="Next">';
+    $html .= '<a class="page-link" href="'. $paramUrl .'page=' . ($currentPage + 1) . '" aria-label="Next">';
     $html .= '<span aria-hidden="true">&raquo;</span>';
     $html .= '</a>';
     $html .= '</li>';

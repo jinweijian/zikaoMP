@@ -43,7 +43,7 @@
                         <tr>
                             <td><?php echo $student['enroll_id']; ?></td>
                             <td><?php echo $student['student_name']; ?></td>
-                            <td><?php echo $student['enroll_time']; ?></td>
+                            <td><?php echo date("Y-m-d H:i", $student['enroll_time']); ?></td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal<?php echo $student['enroll_id']; ?>">取消报名</a>
 
