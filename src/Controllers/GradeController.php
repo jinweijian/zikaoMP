@@ -12,7 +12,7 @@ class GradeController extends BaseController
 
     public function listAction()
     {
-        if (!$this->isAdmin()) {
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
 
@@ -20,10 +20,16 @@ class GradeController extends BaseController
         $size = $this->params['size'] ?? 10;
         [$start, $limit] = perPage($page, $size);
 
+        $teacherId = 'admin';
+        if (!$this->isAdmin()) {
+            $teacherInfo = $this->getTeacherInfo();
+            $teacherId = $teacherInfo['id'] ?? -1;
+        }
+
         $gradeModel = new GradeModel();
         $gradeCount = $gradeModel->count();
 
-        $grades = $gradeModel->getGrades($start, $limit);
+        $grades = $gradeModel->getGrades($teacherId, $start, $limit);
 
         $this->view('gradeList', [
             'page' => $page,
@@ -35,7 +41,7 @@ class GradeController extends BaseController
     public function detailAction()
     {
         $id = $this->params['id'];
-        if (!$this->isAdmin()) {
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
 
@@ -57,7 +63,7 @@ class GradeController extends BaseController
     public function editAction()
     {
         $id = $this->params['id'];
-        if (!$this->isAdmin()) {
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
 
@@ -86,13 +92,8 @@ class GradeController extends BaseController
     public function deleteAction()
     {
         $id = $this->params['id'];
-        $deleteTime = $this->params['timespan'] ?? 0;
-        if (empty($id) || $deleteTime <= time() - 60) {
-            header("HTTP/1.0 422 ");
-            echo "422 参数不合法/页面已过期";
-            exit();
-        }
-        if (!$this->isAdmin()) {
+        $this->canDelete();
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
 
@@ -104,7 +105,7 @@ class GradeController extends BaseController
 
     public function createAction()
     {
-        if (!$this->isAdmin()) {
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
 
@@ -127,26 +128,31 @@ class GradeController extends BaseController
             $this->location('/grade/list');
         }
 
-        // 获取学生列表和课程列表
-        $studentModel = new StudentModel();
-        $students = $studentModel->search([], ['id' => 'DESC'], 0, PHP_INT_MAX, ['id', 'name']);
+        $teacherId = 'admin';
+        if (!$this->isAdmin()) {
+            $teacherInfo = $this->getTeacherInfo();
+            $teacherId = $teacherInfo['id'] ?? -1;
+        }
+
+        $courseModel = new CourseModel();
+        $courses = $courseModel->getCoursesByTeacherId($teacherId);
 
         $this->view('gradeAdd', [
-            'students' => $students,
+            'courses' => $courses,
         ]);
     }
 
-    public function getCoursesAction()
+    public function getStudentsAction()
     {
-        $studentId = $_POST['student_id'] ?? null;
-
-        if ($studentId !== null) {
-            $courseModel = new CourseModel();
-            $courses = $courseModel->getCoursesByStudentId($studentId);
-
-            echo json_encode($courses);
+        $courseId = $_POST['course_id'] ?? null;
+        if (empty($courseId) || !$this->isTeacher()) {
+            echo json_encode([]);
+            exit;
         }
+        $courseModel = new CourseModel();
+        $students = $courseModel->getStudentByCourseId($courseId);
 
+        echo json_encode($students);
         exit();
     }
 

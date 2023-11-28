@@ -53,9 +53,27 @@ class CourseRegistrationController extends BaseController
         // 渲染选课页面
         $this->view('studentCourseEnroll', [
             'courses' => $courses,
-            'enrolledCourses' => $enrolledCourses
+            'enrolledCourses' => $enrolledCourses,
         ]);
     }
+
+    public function deleteAction()
+    {
+        $id = $this->params['id'];
+
+        $this->canDelete();
+
+        if (!$this->isAdmin()) {
+            $this->notPermission();
+        }
+
+        $model = new StudentCourseModel();
+        $model->delete($id);
+
+        // 刷新页面
+        $this->refreshPage('/course/');
+    }
+
 
     // 检查课程是否可选
     private function isCourseAvailable($courseId)

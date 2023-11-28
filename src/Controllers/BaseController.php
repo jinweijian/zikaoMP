@@ -70,6 +70,12 @@ abstract class BaseController
         exit();
     }
 
+    protected function refreshPage()
+    {
+        echo '<script>window.history.back();</script>';
+        exit();
+    }
+
     protected function notPermission()
     {
         header("HTTP/1.0 401 Not Permission");

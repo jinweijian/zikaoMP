@@ -39,6 +39,7 @@ class StudentCourseModel extends BaseModel
         $data = [
             'student_id' => $studentId,
             'course_id' => $courseId,
+            'created_time' => time(),
         ];
 
         return $this->create($data);

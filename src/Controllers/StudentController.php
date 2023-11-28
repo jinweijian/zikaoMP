@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Model\ClassModel;
+use App\Model\StudentCourseModel;
 use App\Model\StudentModel;
 use App\Model\TeacherModel;
 
@@ -51,10 +52,14 @@ class StudentController extends BaseController
         $student = $studentModel->get($id);
         $class = $classModel->get($student['class_id'] ?? -1);
         $teacher = $teacherModel->get($class['teacher_id'] ?? -1);
+
+        $enrolledCourses = (new StudentCourseModel())->getStudentEnrollmentCourses($id);
+
         $this->view('studentDetail', [
             'student' => $student,
             'class' => $class,
-            'teacher' => $teacher
+            'teacher' => $teacher,
+            'enrolledCourses' => $enrolledCourses,
         ]);
     }
 

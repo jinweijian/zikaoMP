@@ -24,11 +24,11 @@ function getNavbar($user, $currentSlug = ''): string
     if (isTeacher($user) || isAdmin($user)) {
         $sidebarItems[] = ['name' => '学生列表', 'url' => '/student/list', 'slug' => 'student'];
         $sidebarItems[] = ['name' => '管理学生成绩', 'url' => '/grade/list', 'slug' => 'grade'];
+        $sidebarItems[] = ['name' => '选课管理', 'url' => '/course/list', 'slug' => 'course'];
     }
     if (isAdmin($user)) {
         $sidebarItems[] = ['name' => '教师管理', 'url' => '/teacher/list', 'slug' => 'teacher'];
         $sidebarItems[] = ['name' => '班级管理', 'url' => '/class/list', 'slug' => 'class'];
-        $sidebarItems[] = ['name' => '选课管理', 'url' => '/course/list', 'slug' => 'course'];
         $sidebarItems[] = ['name' => '用户列表', 'url' => '/user/list', 'slug' => 'user'];
     }
 

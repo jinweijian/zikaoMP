@@ -68,6 +68,7 @@ CREATE TABLE `student_course_relation` (
    `id` int NOT NULL AUTO_INCREMENT COMMENT '关系ID',
    `student_id` int DEFAULT NULL COMMENT '学生ID',
    `course_id` int DEFAULT NULL COMMENT '课程ID',
+   `created_time` int DEFAULT NULL COMMENT '报名时间',
    PRIMARY KEY (`id`),
    UNIQUE KEY `unique_relationship` (`student_id`, `course_id`), -- 唯一索引
    KEY `student_id` (`student_id`),

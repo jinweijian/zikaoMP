@@ -21,17 +21,17 @@
 
             <!-- 使用学生和课程联动表单 -->
             <form id="gradeForm" method="post" action="/grade/create">
-                <label for="studentId">选择学生：</label>
-                <select id="studentId" name="student_id">
-                    <option value="">请选择学生</option>
-                    <?php foreach ($students as $student): ?>
-                        <option value="<?php echo $student['id']; ?>"><?php echo $student['name']; ?></option>
+                <label for="courseId">选择课程：</label>
+                <select id="courseId" name="course_id">
+                    <option value="">请选择课程</option>
+                    <?php foreach ($courses as $course): ?>
+                        <option value="<?php echo $course['id']; ?>"><?php echo $course['course_name']; ?></option>
                     <?php endforeach; ?>
                 </select>
 
-                <label for="courseId">选择课程：</label>
-                <select id="courseId" name="course_id">
-                    <!-- 这里的选项将通过 Ajax 动态加载 -->
+                <label for="studentId">选择学生：</label>
+                <select id="studentId" name="student_id">
+                    <option value="">请选择学生</option>
                 </select>
 
                 <label for="score">分数：</label>
@@ -50,22 +50,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    $('#studentId').on('change', function() {
-        var studentId = $(this).val();
+    $('#courseId').on('change', function() {
+        var courseId = $(this).val();
 
         // 发送 Ajax 请求获取课程列表
         $.ajax({
-            url: '/grade/getCourses',
+            url: '/grade/getStudents',
             type: 'post',
-            data: { student_id: studentId },
+            data: { course_id: courseId },
             dataType: 'json',
             success: function(data) {
                 // 清空课程选择框
-                $('#courseId').empty();
+                $('#studentId').empty();
 
                 // 添加新的课程选项
-                $.each(data, function(index, course) {
-                    $('#courseId').append('<option value="' + course.id + '">' + course.course_name + '</option>');
+                $.each(data, function(index, student) {
+                    $('#studentId').append('<option value="' + student.id + '">' + student.student_name + '</option>');
                 });
             }
         });

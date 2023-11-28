@@ -28,6 +28,29 @@
                 <li class="list-group-item"><strong>辅导员:</strong><a href="/teacher/detail?id=<?php echo $teacher['id'];?>"> <?php echo $teacher['name']; ?></a></li>
                 <li class="list-group-item"><strong>辅导员联系电话:</strong><?php echo $teacher['phone_number']; ?></li>
             </ul>
+
+            <!-- 已选课程列表 -->
+            <h2>已选课程列表</h2>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>课程名称</th>
+                    <th>教师姓名</th>
+                    <th>已选修人数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($enrolledCourses as $course): ?>
+                    <tr>
+                        <td><?php echo $course['course_id']; ?></td>
+                        <td><?php echo $course['course_name']; ?></td>
+                        <td><?php echo $course['teacher_name']; ?></td>
+                        <td><?php echo $course['enrollment_count']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

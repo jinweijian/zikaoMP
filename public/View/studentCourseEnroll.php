@@ -13,7 +13,7 @@
     <?php echo getHeard($user); ?>
 
     <div class="row mt-3">
-        <?php echo getNavbar($user, 'courseRegistration'); ?>
+        <?php echo getNavbar($user, $menuSlug); ?>
 
         <div class="col-md-9">
             <!-- 登录失败提示 -->

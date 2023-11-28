@@ -11,11 +11,11 @@
 <div class="container mt-4">
 
     <!-- 导航栏与头部 -->
-    <?php echo getHeard($user, $menuSlug);?>
+    <?php echo getHeard($user);?>
 
     <div class="row mt-3">
         <!-- 侧边栏 -->
-        <?php echo getNavbar($user);?>
+        <?php echo getNavbar($user, $menuSlug);?>
 
         <!-- 表单 -->
         <div class="col-md-9">

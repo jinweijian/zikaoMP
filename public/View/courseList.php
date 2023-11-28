@@ -28,6 +28,7 @@
                     <th>ID</th>
                     <th>选课名称</th>
                     <th>教师</th>
+                    <th>已选修人数</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -36,7 +37,8 @@
                     <tr>
                         <td><?php echo $course['id']; ?></td>
                         <td><?php echo $course['course_name']; ?></td>
-                        <td><?php echo $course['teacher_id']; ?></td>
+                        <td><?php echo $course['teacher_name']; ?></td>
+                        <td><?php echo $course['total']; ?></td>
                         <td>
                             <a href="/course/detail?id=<?php echo $course['id']; ?>" class="btn btn-info btn-sm">详情</a>
                             <a href="/course/edit?id=<?php echo $course['id']; ?>" class="btn btn-warning btn-sm">编辑</a>
