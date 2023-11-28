@@ -42,7 +42,10 @@ class CourseModel extends BaseModel
 
         $placeholders = implode(', ', array_fill(0, count($courseIds), '?'));
 
-        $sql = "SELECT * FROM {$this->table} WHERE id NOT IN ({$placeholders})";
+        $sql = "SELECT c.*, COUNT(scr.student_id) as `enroll_total` FROM courses c 
+    LEFT JOIN student_course_relation scr on c.id = scr.course_id
+         WHERE c.id NOT IN ({$placeholders})
+         GROUP BY c.id";
         $stmt = $this->executePDO($sql, $courseIds);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

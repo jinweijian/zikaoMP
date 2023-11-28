@@ -22,6 +22,15 @@ class StudentCourseModel extends BaseModel
         return $count > 0;
     }
 
+    public function countStudentEnrolled($studentId): int
+    {
+        $sql = "SELECT COUNT(1) as `count` FROM {$this->table} WHERE student_id = ?";
+        $stmt = $this->executePDO($sql, [$studentId]);
+        $count = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
+
+        return $count;
+    }
+
     /**
      * 学生报名课程
      * @param $studentId

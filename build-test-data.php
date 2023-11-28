@@ -32,7 +32,7 @@ for ($i = 1; $i <= 20; $i++) {
 
 // 生成班级
 for ($i = 1; $i <= 10; $i++) {
-    $className = '班级' . $i;
+    $className = array_pop($classNames);
     $teacherId = createTeacher();
     createClass($className, $teacherId);
 }

@@ -24,7 +24,7 @@ class CourseRegistrationController extends BaseController
 
 
             // 检查学生选课数量是否超过限制
-            if (count($selectedCourses) > 3) {
+            if (count($selectedCourses) > 3 || $this->studentCanEnrolled($studentId)) {
                 $this->location('/courseRegistration/enroll?error=1');
             }
 
@@ -98,6 +98,14 @@ class CourseRegistrationController extends BaseController
     {
         $studentCourseModel = new StudentCourseModel();
         return $studentCourseModel->isEnrolled($studentId, $courseId);
+    }
+
+    private function studentCanEnrolled($studentId) : bool
+    {
+        $studentCourseModel = new StudentCourseModel();
+        $enrolledCount = $studentCourseModel->countStudentEnrolled($studentId);
+
+        return $enrolledCount > 3;
     }
 
     // 报名学生到课程

@@ -31,12 +31,26 @@
 
             <h1>选课报名</h1>
             <form method="post" action="/courseRegistration/enroll">
-                <?php foreach ($courses as $course): ?>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="courses[]" value="<?php echo $course['id']; ?>">
-                        <label class="form-check-label"><?php echo $course['course_name']; ?></label>
-                    </div>
-                <?php endforeach; ?>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>课程名称</th>
+                        <th>剩余名额</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($courses as $course): ?>
+                    <?php $m = 30 - $course['enroll_total'] ?? 0;?>
+                        <tr>
+                            <td><input <?php if ($m <= 0) { echo "disabled"; }?> type="checkbox" name="courses[]" value="<?php echo $course['id']; ?>"></td>
+                            <td><?php echo $course['course_name']; ?></td>
+                            <td><?php echo $m; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+
                 <button type="submit" class="btn btn-primary mt-3">提交选课</button>
             </form>
 
@@ -57,7 +71,7 @@
                         <td><?php echo $course['course_id']; ?></td>
                         <td><?php echo $course['course_name']; ?></td>
                         <td><?php echo $course['teacher_name']; ?></td>
-                        <td><?php echo $course['enrollment_count']; ?></td>
+                        <td><?php echo date("Y-m-d H:i", $course['enrollment_time']); ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
