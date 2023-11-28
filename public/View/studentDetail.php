@@ -37,7 +37,7 @@
                     <th>ID</th>
                     <th>课程名称</th>
                     <th>教师姓名</th>
-                    <th>已选修人数</th>
+                    <th>报名时间</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                         <td><?php echo $course['course_id']; ?></td>
                         <td><?php echo $course['course_name']; ?></td>
                         <td><?php echo $course['teacher_name']; ?></td>
-                        <td><?php echo $course['enrollment_count']; ?></td>
+                        <td><?php echo date("Y-m-d H:i", $course['enrollment_time']); ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

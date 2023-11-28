@@ -64,12 +64,12 @@ class StudentCourseModel extends BaseModel
         $sql = "
         SELECT
             sc.id AS enrollment_id,
+            sc.created_time AS enrollment_time,
             c.id AS course_id,
             c.course_name,
-            t.name AS teacher_name,
-            COUNT(sc.course_id) AS enrollment_count
+            t.name AS teacher_name
         FROM
-            {$this->table} sc
+            student_course_relation sc
         JOIN
             courses c ON sc.course_id = c.id
         JOIN
