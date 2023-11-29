@@ -62,7 +62,7 @@
                     <th>ID</th>
                     <th>课程名称</th>
                     <th>教师姓名</th>
-                    <th>已选修人数</th>
+                    <th>完成选课时间</th>
                 </tr>
                 </thead>
                 <tbody>

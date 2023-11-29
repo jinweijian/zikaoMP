@@ -136,6 +136,7 @@ function systemLog(string $level, string $message, array $data = [])
     }
     $content .= PHP_EOL;
     $filename = FILE_PATH . '/logs/system.log';
+    echo $content;die;
 
     file_put_contents($filename, $content, FILE_APPEND);
 }

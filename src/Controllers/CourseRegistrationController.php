@@ -24,12 +24,15 @@ class CourseRegistrationController extends BaseController
 
 
             // 检查学生选课数量是否超过限制
-            if (count($selectedCourses) > 3 || $this->studentCanEnrolled($studentId)) {
+            if (count($selectedCourses) >= 3 || $this->studentCanEnrolled($studentId)) {
                 $this->location('/courseRegistration/enroll?error=1');
             }
 
             // 遍历选中的课程进行报名
             foreach ($selectedCourses as $courseId) {
+                if ($this->studentCanEnrolled($studentId)) {
+                    $this->location('/courseRegistration/enroll?error=1');
+                }
                 // 检查课程是否已经达到选修人数上限
                 if (!$this->isCourseAvailable($courseId)) {
                     $this->location('/courseRegistration/enroll?error=2');
@@ -63,7 +66,7 @@ class CourseRegistrationController extends BaseController
 
         $this->canDelete();
 
-        if (!$this->isAdmin()) {
+        if (!$this->isTeacher()) {
             $this->notPermission();
         }
 
