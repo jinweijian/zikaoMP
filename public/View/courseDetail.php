@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                                <a href="/courseRegistration/delete?id=<?php echo $student['enroll_id']; ?>&timespan=<?php echo time(); ?>" class="btn btn-danger">确认</a>
+                                                <a href="/courseRegistration/delete?id=<?php echo $student['enroll_id']; ?>&course_id=<?php echo $course['id'];?>&timespan=<?php echo time(); ?>" class="btn btn-danger">确认</a>
                                             </div>
                                         </div>
                                     </div>

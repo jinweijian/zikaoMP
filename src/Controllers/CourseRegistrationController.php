@@ -63,6 +63,7 @@ class CourseRegistrationController extends BaseController
     public function deleteAction()
     {
         $id = $this->params['id'];
+        $courseId = $this->params['course_id'];
 
         $this->canDelete();
 
@@ -74,7 +75,7 @@ class CourseRegistrationController extends BaseController
         $model->delete($id);
 
         // 刷新页面
-        $this->refreshPage('/course/');
+        $this->location("/course/detail?id={$courseId}");
     }
 
 
