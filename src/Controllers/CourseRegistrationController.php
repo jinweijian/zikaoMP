@@ -109,7 +109,7 @@ class CourseRegistrationController extends BaseController
         $studentCourseModel = new StudentCourseModel();
         $enrolledCount = $studentCourseModel->countStudentEnrolled($studentId);
 
-        return $enrolledCount > 3;
+        return $enrolledCount >= 3;
     }
 
     // 报名学生到课程
