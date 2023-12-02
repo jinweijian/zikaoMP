@@ -27,11 +27,11 @@
                 </div>
                 <div class="form-group">
                     <label for="card_id">身份证号：</label>
-                    <input type="text" class="form-control" id="card_id" name="card_id" required>
+                    <input type="text" pattern="[0-9Xx]+" class="form-control" id="card_id" name="card_id" required>
                 </div>
                 <div class="form-group">
                     <label for="phone_number">手机号：</label>
-                    <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                    <input type="text" pattern="[0-9]{11}" class="form-control" id="phone_number" name="phone_number" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">创建教师</button>

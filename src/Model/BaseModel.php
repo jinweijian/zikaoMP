@@ -34,7 +34,11 @@ abstract class BaseModel
     {
         $sql = "DELETE FROM `{$this->table}` WHERE id = ?";
         $stmt = $this->pdo()->prepare($sql);
-        $stmt->execute([$id]);
+        $res = $stmt->execute([$id]);
+        if (!$res) {
+            echo "当前数据不允许删除。请检查";
+            exit();
+        }
 
         return $stmt->rowCount();
     }

@@ -15,6 +15,7 @@ class GradeController extends BaseController
         if (!$this->isTeacher()) {
             $this->notPermission();
         }
+        $name = $this->params['name'] ?? '';
 
         $page = $this->params['page'] ?? 1;
         $size = $this->params['size'] ?? 10;
@@ -27,9 +28,9 @@ class GradeController extends BaseController
         }
 
         $gradeModel = new GradeModel();
-        $gradeCount = $gradeModel->count();
+        $gradeCount = $gradeModel->countGrades($teacherId, $name);
 
-        $grades = $gradeModel->getGrades($teacherId, $start, $limit);
+        $grades = $gradeModel->getGrades($teacherId, $name, $start, $limit);
 
         $this->view('gradeList', [
             'page' => $page,

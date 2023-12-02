@@ -22,6 +22,12 @@
                     <a href='/grade/create' class='btn btn-danger'>录入成绩</a>
                 </div>
             </div>
+            <form method="get" action="/grade/list">
+
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo $_GET['name'] ?? '';?>">
+
+                <button type="submit" class="btn btn-primary" >搜索</button>
+            </form>
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>

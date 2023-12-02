@@ -15,6 +15,7 @@ class StudentController extends BaseController
         if (!$this->isTeacher()) {
             $this->notPermission();
         }
+        $name = $this->params['name'] ?? '';
 
         $page = $this->params['page'] ?? 1;
         $size = $this->params['size'] ?? 10;
@@ -22,14 +23,14 @@ class StudentController extends BaseController
 
         $studentModel = new StudentModel();
 
-        $studentCount = $studentModel->count();
 
         $teacherId = $this->getTeacherInfo()['id'] ?? 0;
         if ($this->isAdmin()) {
             $teacherId = 'admin';
         }
+        $studentCount = $studentModel->countStudentWithClassByTeacherId($teacherId, $name);
 
-        $students = $studentModel->getStudentWithClassByTeacherId($teacherId, $start, $limit);
+        $students = $studentModel->getStudentWithClassByTeacherId($teacherId, $name, $start, $limit);
 
         $this->view('studentList', [
             'page' => $page,
