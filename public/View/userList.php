@@ -39,14 +39,14 @@
                         <td>
                             <!-- 修改密码按钮，触发弹窗 -->
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changePasswordModal-<?php echo $user['id']; ?>">
-                                修改密码
+                                重置密码
                             </button>
                             <!-- 修改密码弹窗 -->
                             <div class="modal fade" id="changePasswordModal-<?php echo $user['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="changePasswordModalLabel">修改密码</h5>
+                                            <h5 class="modal-title" id="changePasswordModalLabel">重置密码</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>

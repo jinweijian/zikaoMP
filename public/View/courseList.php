@@ -21,6 +21,12 @@
                     <a href='/course/create' class='btn btn-danger'>创建选课</a>
                 </div>
             </div>
+            <form method="get" action="/course/list">
+
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo $_GET['name'] ?? '';?>">
+
+                <button type="submit" class="btn btn-primary" >搜索</button>
+            </form>
             <!-- 列表 -->
             <table class="table table-bordered table-hover">
                 <thead>

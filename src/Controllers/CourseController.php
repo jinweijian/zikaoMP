@@ -46,6 +46,9 @@ class CourseController extends BaseController
         if (!$this->isTeacher()) {
             $this->notPermission();
         }
+
+        $name = $this->params['name'] ?? '';
+
         $teacherId = 'admin';
         if (!$this->isAdmin()) {
             $teacherInfo = $this->getTeacherInfo();
@@ -57,9 +60,10 @@ class CourseController extends BaseController
         [$start, $limit] = perPage($page, $size);
 
         $courseModel = new CourseModel();
-        $courseCount = $courseModel->count();
 
-        $courses = $courseModel->findCourseWithStudentCountByTeacherId($teacherId, $start, $limit);
+        $courseCount = $courseModel->countCourseWithStudentCountByTeacherId($teacherId, $name);
+
+        $courses = $courseModel->findCourseWithStudentCountByTeacherId($teacherId, $name, $start, $limit);
 
         $this->view('courseList', [
             'page' => $page,
@@ -74,6 +78,7 @@ class CourseController extends BaseController
         if (!$this->isTeacher()) {
             $this->notPermission();
         }
+        $name = $this->params['name'] ?? '';
 
         $courseModel = new CourseModel();
         $course = $courseModel->get($id);
@@ -85,9 +90,9 @@ class CourseController extends BaseController
         $size = $this->params['size'] ?? 10;
         [$start, $limit] = perPage($page, $size);
 
-        $students = $courseModel->getCourseStudentsByCourseId($id, $start, $limit);
+        $students = $courseModel->getCourseStudentsByCourseId($id, $name, $start, $limit);
 
-        $studentCount = $courseModel->countStudentByCourseId($id);
+        $studentCount = $courseModel->countStudentByCourseId($id, $name);
 
         $this->view('courseDetail', [
             'course' => $course,
